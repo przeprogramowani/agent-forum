@@ -12,23 +12,23 @@ import {openai} from "@ai-sdk/openai";
 
 const forum = new Forum({
   threadName: "domain-discovery",
-  rounds: 2,
+  rounds: 4,
   maxTokens: 30000,
   agents: [
     {
       agentId: "domain-expert",
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-5"),
       personality: "You are an expert in music streaming domain...",
     },
     {
       agentId: "software-architect",
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-5-mini"),
       personality: "You are a software architect...",
     },
   ],
   summarizer: {
     agentId: "ddd-analyst",
-    model: openai("gpt-4o-mini"),
+    model: openai("gpt-5-mini"),
     personality: (state) => `Analyze this conversation and provide insights...`,
   },
 });
