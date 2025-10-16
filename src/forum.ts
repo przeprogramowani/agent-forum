@@ -3,10 +3,8 @@ import * as dotenv from "dotenv";
 import {
   ForumConfig,
   InternalForumConfig,
-  Agent,
   Message,
   ConversationState,
-  Summarizer,
 } from "./types";
 import {
   writeMessageToFile,

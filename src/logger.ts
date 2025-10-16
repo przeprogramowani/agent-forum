@@ -111,6 +111,6 @@ export class Logger {
   }
 
   static logInfo(message: string): void {
-    console.log(`ℹ️  ${message}`);
+    console.log(`\nℹ️  ${message}`);
   }
 }

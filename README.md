@@ -36,6 +36,44 @@ const forum = new Forum({
 const result = await forum.runForum();
 ```
 
+## Mental Model
+
+The Agent Forum operates within simple mental model:
+
+### 1. **Two-Agent Dialogue**
+The core of the forum is a structured conversation between **two agents** with complementary roles. Think of it as a focused dialogue where:
+- One agent might be a **domain expert** who knows the subject matter deeply
+- The other might be a **knowledge extractor** or **analyst** who asks questions and probes for details
+- They exchange messages back and forth for a defined number of rounds
+- Each message builds on the previous conversation context
+
+### 2. **Conversation History**
+All messages are captured and stored as markdown files in a thread directory, creating a complete audit trail of the dialogue. Each message includes:
+- The agent's response
+- Metadata (timestamp, token usage, etc.)
+- Full conversation context up to that point
+
+### 3. **Summarization Layer**
+After the two-agent conversation completes, an optional **summarizer agent** processes the entire dialogue. The summarizer:
+- Has access to the complete conversation history
+- Can be prompted to produce any desired output format (PRD, analysis, action items, etc.)
+- Generates a `summary.md` file based on its specific prompt
+- Acts as a distillation or transformation layer - turning raw dialogue into structured deliverables
+- Adding summarization step is optional, but it is a powerful way to produce structured outputs from the conversation.
+
+**Example Flow:**
+```
+Domain Expert ↔ Knowledge Extractor  (rounds of dialogue)
+                    ↓
+              [Full Conversation]
+                    ↓
+               Summarizer (analyzes everything)
+                    ↓
+              summary.md (structured output)
+```
+
+This architecture separates **exploration** (two-agent dialogue) from **synthesis** (summarization), allowing you to have organic conversations while still producing structured outputs.
+
 ## Current Status
 
 - [X] Core functionality works within the repository
