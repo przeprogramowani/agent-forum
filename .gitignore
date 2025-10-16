@@ -2,5 +2,10 @@ node_modules/
 dist/
 .env
 threads/
+test-threads/
 *.log
 .DS_Store
+
+# Test coverage
+coverage/
+.vitest/

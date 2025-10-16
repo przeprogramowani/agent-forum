@@ -140,3 +140,76 @@ The optional summarizer agent has:
   personality: (state: ConversationState) => string; // Function that generates the system prompt based on conversation state
 }
 ```
+
+## Testing & Testability
+
+The Forum architecture is designed to be fully testable by separating concerns:
+
+- **LLM Service**: Handles all LLM API calls with retry logic
+- **Conversation Strategy**: Manages turn-taking and conversation flow
+- **Forum**: Orchestrates the conversation, tokens, and file I/O
+
+### Dependency Injection
+
+The `Forum` constructor accepts optional dependencies for testing:
+
+```typescript
+constructor(
+  config: ForumConfig,
+  llmService?: LLMService,      // Optional: inject mock LLM service
+  strategy?: ConversationStrategy // Optional: inject custom strategy
+)
+```
+
+### Testing with Mock LLM Service
+
+You can test conversation logic without making expensive API calls:
+
+```typescript
+import {Forum, LLMService, LLMGenerationResult} from "./src/types";
+
+class MockLLMService implements LLMService {
+  async generateText(model, systemPrompt, messages): Promise<LLMGenerationResult> {
+    // Return predefined responses for testing
+    return {
+      text: "Mocked response",
+      outputTokens: 10
+    };
+  }
+}
+
+const forum = new Forum(config, new MockLLMService());
+const result = await forum.runForum();
+```
+
+### Custom Conversation Strategies
+
+Create custom strategies to control conversation flow:
+
+```typescript
+import {ConversationStrategy, ConversationContext} from "./src/types";
+
+class CustomStrategy implements ConversationStrategy {
+  getNextAgent(context: ConversationContext): number | null {
+    // Custom logic to determine which agent speaks next
+    // Return null to end conversation
+  }
+
+  buildConversationHistory(messages, agentId, initialPrompt) {
+    // Custom logic to format conversation history
+  }
+
+  shouldContinue(context: ConversationContext): boolean {
+    // Custom stopping conditions
+  }
+}
+
+const forum = new Forum(config, undefined, new CustomStrategy());
+```
+
+### Example Test Files
+
+See `examples/testing-example.ts` for complete examples of:
+- Mocking the LLM service
+- Creating custom strategies
+- Testing conversation logic without API calls

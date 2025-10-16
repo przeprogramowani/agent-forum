@@ -1,5 +1,14 @@
 import type {LanguageModelV2} from "@ai-sdk/provider";
 
+// Re-export interfaces and default implementations for external use
+export type {LLMService, LLMGenerationResult} from "./llm-service";
+export {DefaultLLMService} from "./llm-service";
+export type {
+  ConversationStrategy,
+  ConversationContext,
+} from "./strategies/conversation-strategy";
+export {TwoAgentPingPongStrategy} from "./strategies/conversation-strategy";
+
 export interface ForumConfig {
   threadName: string;
   rounds: number;
