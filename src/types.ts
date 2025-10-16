@@ -1,0 +1,52 @@
+import type {LanguageModelV2} from "@ai-sdk/provider";
+
+export interface ForumConfig {
+  threadName: string;
+  rounds: number;
+  agents: [Agent, Agent];
+  summarizer?: Summarizer;
+  initialPrompt?: string;
+  outputDir?: string;
+  maxTokens?: number;
+}
+
+/**
+ * Internal config type where all optional fields have been resolved to non-undefined values
+ */
+export interface InternalForumConfig extends ForumConfig {
+  initialPrompt: string;
+  outputDir: string;
+  maxTokens: number;
+}
+
+export interface Agent {
+  agentId: string;
+  model: LanguageModelV2;
+  personality: string;
+}
+
+export interface Summarizer {
+  agentId: string;
+  model: LanguageModelV2;
+  personality: (state: ConversationState) => string;
+}
+
+export interface Message {
+  role: string;
+  content: string;
+  timestamp: string;
+  round: number;
+  tokens: number;
+}
+
+export interface ConversationState {
+  messages: Message[];
+  totalTokens: number;
+  completed: boolean;
+  stoppedReason?: "max_rounds" | "max_tokens" | "fatal_error";
+}
+
+/**
+ * Type definition for the async forum runner method
+ */
+export type ForumRunner = () => Promise<ConversationState>;

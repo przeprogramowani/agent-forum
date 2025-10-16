@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+threads/
+*.log
+.DS_Store

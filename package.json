@@ -1,0 +1,31 @@
+{
+  "name": "agent-forum",
+  "version": "1.0.0",
+  "description": "A library for enabling two LLM models to communicate with each other",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "start": "tsx index.ts"
+  },
+  "keywords": [
+    "llm",
+    "ai",
+    "conversation",
+    "vercel-ai-sdk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ai-sdk/openai": "^2.0.52",
+    "@ai-sdk/provider": "^2.0.0",
+    "@ai-sdk/xai": "^2.0.26",
+    "ai": "^5.0.72",
+    "dotenv": "^16.4.5",
+    "tiktoken": "^1.0.15"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "tsx": "4.20.6",
+    "typescript": "^5.5.0"
+  }
+}
