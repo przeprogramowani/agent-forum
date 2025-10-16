@@ -4,6 +4,38 @@
 
 A TypeScript library for enabling AI Agents to communicate with each other in structured conversations.
 
+### Example
+
+```typescript
+import {Forum} from "./src/forum";
+import {openai} from "@ai-sdk/openai";
+
+const forum = new Forum({
+  threadName: "domain-discovery",
+  rounds: 2,
+  maxTokens: 30000,
+  agents: [
+    {
+      agentId: "domain-expert",
+      model: openai("gpt-4o-mini"),
+      personality: "You are an expert in music streaming domain...",
+    },
+    {
+      agentId: "software-architect",
+      model: openai("gpt-4o-mini"),
+      personality: "You are a software architect...",
+    },
+  ],
+  summarizer: {
+    agentId: "ddd-analyst",
+    model: openai("gpt-4o-mini"),
+    personality: (state) => `Analyze this conversation and provide insights...`,
+  },
+});
+
+const result = await forum.runForum();
+```
+
 ## Current Status
 
 - [X] Core functionality works within the repository
@@ -69,36 +101,4 @@ The optional summarizer agent has:
   model: LanguageModelV2;                       // AI SDK model
   personality: (state: ConversationState) => string; // Function that generates the system prompt based on conversation state
 }
-```
-
-### Example Configuration
-
-```typescript
-import {Forum} from "./src/forum";
-import {openai} from "@ai-sdk/openai";
-
-const forum = new Forum({
-  threadName: "domain-discovery",
-  rounds: 2,
-  maxTokens: 30000,
-  agents: [
-    {
-      agentId: "domain-expert",
-      model: openai("gpt-4o-mini"),
-      personality: "You are an expert in music streaming domain...",
-    },
-    {
-      agentId: "software-architect",
-      model: openai("gpt-4o-mini"),
-      personality: "You are a software architect...",
-    },
-  ],
-  summarizer: {
-    agentId: "ddd-analyst",
-    model: openai("gpt-4o-mini"),
-    personality: (state) => `Analyze this conversation and provide insights...`,
-  },
-});
-
-const result = await forum.runForum();
 ```
