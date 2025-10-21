@@ -49,13 +49,13 @@ flowchart TB
 
     Complete --> History[(Conversation History<br/>thread/*.md + metadata)]
 
-    Complete --> Summarizer[Optional:<br/>Summarization Agent<br/>→ summary.md]
+    Complete --> Summarizer[Optional:<br/>Summarization Layer<br/>→ summary.md]
 
     Summarizer --> End([End])
 
-    style Dialog fill:#e1f5ff
-    style History fill:#fff4e1
-    style Summarizer fill:#f0e1ff
+    style Dialog fill:#3B82F6,color:#fff
+    style History fill:#6366F1,color:#fff
+    style Summarizer fill:#8B5CF6,color:#fff
 ```
 
 
