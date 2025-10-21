@@ -38,6 +38,27 @@ const result = await forum.runForum();
 
 ## Mental Model
 
+```mermaid
+flowchart TB
+    Start([Agent Forum]) --> Dialog[Two-Agent Dialogue<br/>Agent A ↔ Agent B]
+
+    Dialog -->|m rounds or<br/>n tokens| Budget{Budget<br/>Reached?}
+
+    Budget -->|No| Dialog
+    Budget -->|Yes| Complete[Conversation Complete]
+
+    Complete --> History[(Conversation History<br/>thread/*.md + metadata)]
+
+    Complete --> Summarizer[Optional:<br/>Summarization Agent<br/>→ summary.md]
+
+    Summarizer --> End([End])
+
+    style Dialog fill:#e1f5ff
+    style History fill:#fff4e1
+    style Summarizer fill:#f0e1ff
+```
+
+
 The Agent Forum operates within simple mental model:
 
 ### 1. **Two-Agent Dialogue**
@@ -60,17 +81,6 @@ After the two-agent conversation completes, an optional **summarizer agent** pro
 - Generates a `summary.md` file based on its specific prompt
 - Acts as a distillation or transformation layer - turning raw dialogue into structured deliverables
 - Adding summarization step is optional, but it is a powerful way to produce structured outputs from the conversation.
-
-**Example Flow:**
-```
-Domain Expert ↔ Knowledge Extractor  (rounds of dialogue)
-                    ↓
-              [Full Conversation]
-                    ↓
-               Summarizer (analyzes everything)
-                    ↓
-              summary.md (structured output)
-```
 
 This architecture separates **exploration** (two-agent dialogue) from **synthesis** (summarization), allowing you to have organic conversations while still producing structured outputs.
 
