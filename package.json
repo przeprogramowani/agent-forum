@@ -7,7 +7,9 @@
   "author": "Przeprogramowani / 10xDevs",
   "scripts": {
     "start": "tsx index.ts",
+    "typecheck": "tsc --noEmit",
     "test": "vitest",
+    "test:run": "vitest run",
     "test:ui": "vitest --ui"
   },
   "keywords": [
@@ -18,17 +20,19 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@ai-sdk/openai": "^2.0.52",
-    "@ai-sdk/provider": "^2.0.0",
-    "@ai-sdk/xai": "^2.0.26",
-    "ai": "^5.0.72",
-    "dotenv": "^16.4.5",
-    "tiktoken": "^1.0.15",
-    "vitest": "^3.2.4"
+    "@ai-sdk/openai": "^3.0.68",
+    "@ai-sdk/provider": "^3.0.10",
+    "@ai-sdk/xai": "^3.0.93",
+    "@openrouter/ai-sdk-provider": "^2.9.0",
+    "ai": "^6.0.197",
+    "dotenv": "^17.4.2",
+    "tiktoken": "^1.0.22",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@types/node": "^20.14.0",
-    "tsx": "4.20.6",
-    "typescript": "^5.5.0"
+    "@types/node": "^22.18.0",
+    "tsx": "^4.22.4",
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.8"
   }
 }

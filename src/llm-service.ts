@@ -1,5 +1,5 @@
 import {generateText} from "ai";
-import type {LanguageModelV2} from "@ai-sdk/provider";
+import type {LanguageModel} from "ai";
 import {Logger} from "./logger";
 
 /**
@@ -45,7 +45,7 @@ export interface LLMGenerationResult {
  */
 export interface LLMService {
   generateText(
-    model: LanguageModelV2,
+    model: LanguageModel,
     systemPrompt: string,
     messages: ApiMessage[]
   ): Promise<LLMGenerationResult>;
@@ -159,7 +159,7 @@ export class DefaultLLMService implements LLMService {
    * Generates text using the LLM with retry logic
    */
   async generateText(
-    model: LanguageModelV2,
+    model: LanguageModel,
     systemPrompt: string,
     messages: ApiMessage[]
   ): Promise<LLMGenerationResult> {
