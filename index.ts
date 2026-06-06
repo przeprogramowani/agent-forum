@@ -1,39 +1,48 @@
 import {Forum} from "./src/forum";
-import {openai} from "@ai-sdk/openai";
+import {orModel} from "./src/providers";
 
-// import {DOMAIN_EXPERT} from "./prompts/experts/domain-expert";
-// import {SOFTWARE_ARCHITECT} from "./prompts/extractors/software-architect";
-// import {DDD_ANALYST} from "./prompts/summarizers/ddd-analyst";
+import {BEGINNER_DEVELOPER} from "./prompts/extractors/beginner-developer";
+import {SPACED_REPETITION_EXPERT} from "./prompts/experts/spaced-repetition-expert";
+import {LEARNING_INSIGHTS} from "./prompts/summarizers/learning-insights";
 
-import {MVP_AUTHOR} from "./prompts/extractors/mvp-author";
-import {PRD_PLANNER} from "./prompts/experts/prd-planner";
-import {PRD_CREATOR} from "./prompts/summarizers/prd-creator";
-
+// Interview between two models, served through OpenRouter:
+//   - a beginner programmer (interviewer) who leads with questions, and
+//   - a domain expert (interviewee) on learning with spaced repetition.
+//
+// The ping-pong strategy alternates turns starting with agent[0]. Putting the
+// beginner first means every round is a clean question -> answer exchange, so
+// `rounds: 3` yields exactly 3 questions, each answered by the expert.
 async function main() {
-  const prdForum = new Forum({
-    threadName: "domain-discovery",
-    rounds: 4,
+  const forum = new Forum({
+    threadName: "spaced-repetition-interview",
+    rounds: 3,
     maxTokens: 30000,
+    initialPrompt:
+      "Rozpoczynasz wywiad z ekspertem od nauki ze spaced repetition. " +
+      "Przedstaw się w jednym zdaniu i zadaj swoje pierwsze, najważniejsze pytanie.",
     agents: [
       {
-        agentId: "prd-planner",
-        model: openai("gpt-5-mini"),
-        personality: PRD_PLANNER(),
+        // Interviewer — asks first, drives the conversation.
+        agentId: "beginner-developer",
+        model: orModel("openai/gpt-4o-mini"),
+        personality: BEGINNER_DEVELOPER(),
       },
       {
-        agentId: "mvp-author",
-        model: openai("gpt-4o-mini"),
-        personality: MVP_AUTHOR(),
+        // Interviewee — answers the beginner's questions.
+        agentId: "spaced-repetition-expert",
+        model: orModel("anthropic/claude-sonnet-4.5"),
+        personality: SPACED_REPETITION_EXPERT(),
       },
     ],
     summarizer: {
-      agentId: "prd-creator",
-      model: openai("gpt-5"),
-      personality: PRD_CREATOR,
+      // Distills the interview into a structured domain brief.
+      agentId: "learning-insights",
+      model: orModel("openai/gpt-4o"),
+      personality: LEARNING_INSIGHTS,
     },
   });
 
-  await prdForum.runForum();
+  await forum.runForum();
 }
 
 main().catch(console.error);

@@ -1,4 +1,4 @@
-import type {LanguageModelV2} from "@ai-sdk/provider";
+import type {LanguageModel} from "ai";
 
 // Re-export interfaces and default implementations for external use
 export type {LLMService, LLMGenerationResult} from "./llm-service";
@@ -30,13 +30,13 @@ export interface InternalForumConfig extends ForumConfig {
 
 export interface Agent {
   agentId: string;
-  model: LanguageModelV2;
+  model: LanguageModel;
   personality: string;
 }
 
 export interface Summarizer {
   agentId: string;
-  model: LanguageModelV2;
+  model: LanguageModel;
   personality: (state: ConversationState) => string;
 }
 
