@@ -30,7 +30,7 @@ async function main() {
       {
         // Interviewee — answers the beginner's questions.
         agentId: "spaced-repetition-expert",
-        model: orModel("anthropic/claude-sonnet-4.5"),
+        model: orModel("anthropic/claude-sonnet-5"),
         personality: SPACED_REPETITION_EXPERT(),
       },
     ],
