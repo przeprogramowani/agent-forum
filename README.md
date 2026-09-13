@@ -134,7 +134,7 @@ Each agent in the `agents` array must have:
 ```typescript
 {
   agentId: string;        // Unique identifier for the agent
-  model: LanguageModelV2; // AI SDK model (e.g., openai("gpt-4o-mini"))
+  model: LanguageModelV2; // AI SDK model (e.g., openai("gpt-5.6-luna"))
   personality: string;    // System prompt defining the agent's role and behavior
 }
 ```

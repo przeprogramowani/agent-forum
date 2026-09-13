@@ -19,8 +19,8 @@ export const openrouter = createOpenRouter({
 });
 
 /**
- * Selects an OpenRouter chat model by its slug, e.g. "openai/gpt-4o-mini"
- * or "anthropic/claude-3.5-sonnet". Returns a model ready to pass to an Agent.
+ * Selects an OpenRouter chat model by its slug, e.g. "openai/gpt-5.6-luna"
+ * or "anthropic/claude-sonnet-5". Returns a model ready to pass to an Agent.
  */
 export function orModel(modelId: string): LanguageModel {
   return openrouter.chat(modelId);

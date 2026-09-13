@@ -24,20 +24,20 @@ async function main() {
       {
         // Interviewer — asks first, drives the conversation.
         agentId: "beginner-developer",
-        model: orModel("openai/gpt-4o-mini"),
+        model: orModel("openai/gpt-5.6-luna"),
         personality: BEGINNER_DEVELOPER(),
       },
       {
         // Interviewee — answers the beginner's questions.
         agentId: "spaced-repetition-expert",
-        model: orModel("anthropic/claude-sonnet-4.5"),
+        model: orModel("anthropic/claude-sonnet-5"),
         personality: SPACED_REPETITION_EXPERT(),
       },
     ],
     summarizer: {
       // Distills the interview into a structured domain brief.
       agentId: "learning-insights",
-      model: orModel("openai/gpt-4o"),
+      model: orModel("openai/gpt-5.6-terra"),
       personality: LEARNING_INSIGHTS,
     },
   });

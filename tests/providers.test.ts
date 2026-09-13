@@ -8,9 +8,9 @@ describe("OpenRouter provider", () => {
   });
 
   it("builds a chat model carrying the requested slug without hitting the network", () => {
-    const model = orModel("openai/gpt-4o-mini");
+    const model = orModel("openai/gpt-5.6-luna");
     expect(model).toBeTypeOf("object");
     // The model object is lazy — constructing it must not require a live API key.
-    expect((model as {modelId: string}).modelId).toBe("openai/gpt-4o-mini");
+    expect((model as {modelId: string}).modelId).toBe("openai/gpt-5.6-luna");
   });
 });
