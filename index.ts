@@ -24,7 +24,7 @@ async function main() {
       {
         // Interviewer — asks first, drives the conversation.
         agentId: "beginner-developer",
-        model: orModel("openai/gpt-4o-mini"),
+        model: orModel("openai/gpt-5.6-luna"),
         personality: BEGINNER_DEVELOPER(),
       },
       {
@@ -37,7 +37,7 @@ async function main() {
     summarizer: {
       // Distills the interview into a structured domain brief.
       agentId: "learning-insights",
-      model: orModel("openai/gpt-4o"),
+      model: orModel("openai/gpt-5.6-terra"),
       personality: LEARNING_INSIGHTS,
     },
   });
